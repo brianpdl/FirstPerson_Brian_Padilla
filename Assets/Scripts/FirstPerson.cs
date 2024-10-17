@@ -8,6 +8,9 @@ public class FirstPerson : MonoBehaviour
     CharacterController controller;
     void Start()
     {
+        //esto pa bloquear el raton en el cntro y lo oculta.
+        Cursor.lockState = CursorLockMode.Locked;
+
         controller = GetComponent<CharacterController>();
     }
 
@@ -23,7 +26,8 @@ public class FirstPerson : MonoBehaviour
         {
           float angulorotacion = Mathf.Atan2(input.x, input.y);
           transform.eulerAngles = new Vector3(0, angulorotacion,0);
-
+           Vector3 movimiento = Quaternion.Euler(0, angulorotacion, 0) * Vector3.forward;
+           controller.Move(movimiento*velocidadMovimiento*Time.deltaTime);
 
         }
 
