@@ -5,10 +5,16 @@ using UnityEngine;
 
 public class FirstPerson : MonoBehaviour
 {
+    [Header("Movimiento")]
     [SerializeField] private float velocidadMovimiento;
+    [SerializeField] private float factorGravedad;
+    [SerializeField] private float alturaSalto;
+    [Header("Deteccion Suelo")]
     [SerializeField] private float radioDeteccion;
     [SerializeField] private Transform pies;
     [SerializeField] private LayerMask queEsSuelo;
+
+    private float movinietnoVertical;
 
     private CharacterController controller;
 
@@ -17,6 +23,7 @@ public class FirstPerson : MonoBehaviour
     void Start()
     {
         controller = GetComponent<CharacterController>();
+
         //esto pa bloquear el raton en el cntro y lo oculta.
         Cursor.lockState = CursorLockMode.Locked;
         cam = Camera.main;
@@ -26,27 +33,28 @@ public class FirstPerson : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        MoverYRotar();
 
-        //MoverYRotar();
         AplicarGravedad();
 
-        //if (EnSuelo)
+        //if (EnSuelo())
         {
-            //movimientoVertical.y = 0;
+           //movimientoVertical.y = 0;
             Saltar();
         }
         
-
-
-
         //si existe input...
-
-
         //controller.Move(movimiento * velocidadMovimiento * Time.deltaTime);
-
-
-
     }
+
+    private void Saltar()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            //movimientoVertical.y = Mathf.Sqrt(-2 * factorGravedad * alturaSalto);
+        }
+    }
+    
 
     private void MoverYRotar()
     {
@@ -73,13 +81,6 @@ public class FirstPerson : MonoBehaviour
     }
 
 
-    private void Saltar()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            //movimientoVertical.y = Mathf.Sqrt(-2 * factorGravedad * alturaSalto);
-        }
-    }
 
     private void OnDrawnGizmos()
     {
